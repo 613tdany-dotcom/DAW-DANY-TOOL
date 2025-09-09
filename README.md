@@ -59,6 +59,17 @@ Notas:
 - La primera vez, **Settings → Pages** suele mostrar "GitHub Actions" como origen automáticamente. Si el repositorio requiere confirmación manual, habilítalo allí una sola vez.
 - Las rutas son relativas, por lo que el sitio funciona bajo `/DAW-DANY-TOOL/`.
 
+### Diagrama de flujo de despliegue (ilustrativo)
+El siguiente diagrama muestra el pipeline de publicación a Pages. GitHub renderiza bloques Mermaid directamente en el README.
+
+```mermaid
+flowchart LR
+  Dev[Push a 'danytool'] --> CI[GitHub Actions: pages.yml]
+  CI --> Artifact[Upload Pages Artifact]
+  Artifact --> Deploy[Deploy to GitHub Pages]
+  Deploy --> Site[https://613tdany-dotcom.github.io/DAW-DANY-TOOL/]
+```
+
 ## Desarrollo local HTTPS (Windows + Chrome + mkcert)
 Para que el micrófono funcione en desarrollo, usa HTTPS local sin dependencias de Node.
 
