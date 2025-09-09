@@ -1,31 +1,32 @@
 /* === Tema oscuro limpio para DAW DANY TOOL — v1.1 === */
 :root{
   --bg:#0f1116; --bg-alt:#151926; --txt:#e6e6ef; --muted:#9aa3b2;
-  --brand:#6ee7ff; --brand2:#8b5cf6; --border:#23283a; --card:#11131a;
-  --ok:#22c55e; --warn:#f59e0b; --danger:#ef4444; --shadow:0 8px 24px rgba(0,0,0,.35);
+  --brand:#22d3ee; --brand2:#14b8a6; --border:#23283a; --card:#11131a;
+  --ok:#22c55e; --warn:#f59e0b; --danger:#ef4444; --shadow:0 8px 24px rgba(0,0,0,.35)
 }
 html,body{height:100%}
-body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, rgba(110,231,255,.08), transparent 60%),radial-gradient(1200px 800px at 110% -10%, rgba(139,92,246,.08), transparent 60%),var(--bg);color:var(--txt);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans","Helvetica Neue",Arial}
+body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, rgba(34,211,238,.10), transparent 60%),radial-gradient(1200px 800px at 110% -10%, rgba(20,184,166,.08), transparent 60%),var(--bg);color:var(--txt);font:14px/1.5 ui-monospace,"JetBrains Mono","Monaspace",Menlo,Consolas,monospace}
 a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
 .top{position:sticky;top:0;z-index:5;background:rgba(15,17,22,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
 .wrap{max-width:1180px;margin:0 auto;padding:14px 16px}
 .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .grow{flex:1 1 300px}
-.title{font-weight:700;letter-spacing:.3px;font-size:16px}
+.title{font-weight:800;letter-spacing:.4px;font-size:18px}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--muted)}
-.chip{padding:2px 8px;border-radius:999px;background:#0b0d12;border:1px solid var(--border);color:var(--muted)}
-.panel{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:12px;box-shadow:var(--shadow)}
+.chip{padding:2px 8px;border-radius:999px;background:#0b0d12;border:1px solid var(--border);color:#a7f3ff;box-shadow:0 0 0 1px rgba(34,211,238,.18),0 0 12px rgba(34,211,238,.18) inset}
+.panel{background:var(--bg-alt);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
 .grid{display:grid;gap:12px;grid-template-columns:1fr}
 @media(min-width:980px){.grid{grid-template-columns:1.2fr .8fr}}
-.section-title{margin:8px 0 10px;font-weight:700;color:#fafafc;letter-spacing:.3px}
+.section-title{margin:8px 0 10px;font-weight:800;color:#fafafc;letter-spacing:.4px}
 .sub{color:var(--muted);font-size:12px}
-button,input,select{color:var(--txt);background:#0e1016;border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+button,input,select{color:var(--txt);background:#0e1016;border:1px solid var(--border);border-radius:10px;padding:8px 10px;transition:.2s ease}
 button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
 .btn{display:inline-flex;align-items:center;gap:8px}
-.btn.primary{background:linear-gradient(135deg, rgba(110,231,255,.18), rgba(139,92,246,.18));border-color:#304259}
+.btn.primary{background:linear-gradient(140deg, rgba(34,211,238,.18), rgba(20,184,166,.18));border-color:#2a5a64;box-shadow:0 6px 18px rgba(34,211,238,.08)}
 .btn.danger{background:rgba(239,68,68,.12);border-color:#4a2b31}
 .btn.warn{background:rgba(245,158,11,.12);border-color:#4a3c25}
 .btn.ok{background:rgba(34,197,94,.12);border-color:#224a33}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.35),0 0 0 2px rgba(34,211,238,.08) inset}
 .kbd{font:12px Menlo,Consolas,monospace;background:#0b0d12;padding:2px 6px;border:1px solid #2b3146;border-radius:6px;color:#b7c0d1}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .toolbar .group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -33,20 +34,20 @@ button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
 @media(min-width:780px){.columns{grid-template-columns:1fr 1fr}}
 .mixer{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:980px){.mixer{grid-template-columns:1fr 1fr}}
-canvas{display:block;width:100%;background:#0b0d12;border-radius:8px;border:1px solid var(--border)}
+canvas{display:block;width:100%;background:#0b0d12;border-radius:10px;border:1px solid var(--border)}
 .track{display:grid;grid-template-columns:36px 1fr 120px;gap:10px;align-items:center;padding:8px;border-bottom:1px dashed #273049}
-.track .name{font-weight:600}
-.track .wave{height:54px;background:#0b0d12;border:1px solid var(--border);border-radius:8px;position:relative}
-.timeline{position:relative;height:120px;background:#0b0d12;border:1px solid var(--border);border-radius:10px}
-.playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--brand);pointer-events:none}
-.console{height:140px;overflow:auto;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#0b0d12;padding:8px;border:1px solid var(--border);border-radius:10px}
+.track .name{font-weight:700}
+.track .wave{height:54px;background:#0b0d12;border:1px solid var(--border);border-radius:10px;position:relative}
+.timeline{position:relative;height:120px;background:#0b0d12;border:1px solid var(--border);border-radius:12px}
+.playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--brand);box-shadow:0 0 12px rgba(34,211,238,.6);pointer-events:none}
+.console{height:140px;overflow:auto;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#0b0d12;padding:8px;border:1px solid var(--border);border-radius:12px}
 .guide{display:none;position:fixed;inset:0;background:rgba(8,10,16,.75);backdrop-filter:blur(6px);z-index:30;align-items:center;justify-content:center}
 .guide .card{max-width:680px;background:var(--bg-alt);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
 .statusbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .statusbar .muted{color:var(--muted)}
 .markers{display:flex;gap:6px;flex-wrap:wrap}
-.marker{padding:4px 6px;font:12px/1.2 ui-monospace,Menlo,Consolas,monospace;background:#0b0d12;border:1px solid var(--border);border-radius:8px;color:#bcd}
-/* Tema claro opcional */
-:root.light{--bg:#f6f7fb;--bg-alt:#fff;--txt:#0e1116;--muted:#444e5c;--card:#fff;--border:#dfe3ef}
+.marker{padding:4px 6px;font:12px/1.2 ui-monospace,Menlo,Consolas,monospace;background:#0b0d12;border:1px solid var(--border);border-radius:8px;color:#b7f7ff}
+:root.light{--bg:#f6f7fb;--bg-alt:#fff;--txt:#0e1116;--muted:#444e5c;--card:#fff;--border:#dfe3ef;--brand:#0891b2;--brand2:#0d9488}
 :root.light body{background:linear-gradient(180deg,#f2f6ff,#f6f7fb)}
 :root.light canvas{background:#fff}
+:where(a,button,input,select,label,.btn):focus-visible{outline:2px solid var(--brand);outline-offset:2px;box-shadow:0 0 0 4px rgba(34,211,238,.18)}
