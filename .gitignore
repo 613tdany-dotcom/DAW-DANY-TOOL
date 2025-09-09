@@ -1,0 +1,3 @@
+# Certificados locales para desarrollo HTTPS (no versionar)
+dev/certs/*
+!dev/certs/.gitkeep
