@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DAW DANY TOOL — v1.1</title>
+  <meta name="description" content="DAW DANY TOOL — v1.1 • 100% local • WebAudio • Herramientas educativas y musicales" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap row">
+      <div class="grow">
+        <div class="title">DAW DANY TOOL — v1.1 <span class="chip">100% local • WebAudio</span></div>
+        <div class="sub">Autor: <strong>DANY TRINIDAD</strong> • YouTube: 
+          <a href="https://www.youtube.com/@Sonidosdeesperanza-q6v" target="_blank">@Sonidosdeesperanza-q6v</a>
+          • <span title="El que habita al abrigo del Altísimo... (Salmos 91:1)">Salmos 91:1</span></div>
+      </div>
+      <div class="statusbar">
+        <span class="muted">Hora RD:</span> <span id="clock" class="badge">—:—:—</span>
+        <span class="muted">Modo educativo:</span>
+        <button id="eduToggle" class="btn">OFF</button>
+        <button id="themeToggle" class="btn" title="Cambiar tema">🌙/☀️</button>
+        <a class="btn" href="#guia" id="openGuide">📘 Guía</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap grid">
+    <section class="panel">
+      <h2 class="section-title">Transporte</h2>
+      <div class="toolbar">
+        <div class="group">
+          <button id="btnPlay" class="btn ok">▶️ Reproducir</button>
+          <button id="btnPause" class="btn warn">⏸️ Pausa</button>
+          <button id="btnStop" class="btn danger">⏹️ Detener</button>
+        </div>
+        <div class="group">
+          <button id="seekM5" class="btn">⏪ −5s</button>
+          <button id="seekM1" class="btn">◀️ −1s</button>
+          <button id="seekP1" class="btn">▶️ +1s</button>
+          <button id="seekP5" class="btn">⏩ +5s</button>
+        </div>
+        <div class="group">
+          <label>Loop</label>
+          <input id="loopStart" type="number" min="0" step="0.1" value="0" class="num"/>
+          <input id="loopEnd" type="number" min="0" step="0.1" value="8" class="num"/>
+          <button id="loopToggle" class="btn">🔁 OFF</button>
+        </div>
+        <div class="group">
+          <label for="bpm">BPM</label>
+          <input id="bpm" type="number" min="20" max="300" value="90" class="num" />
+          <button id="metroToggle" class="btn">🧭 Metrónomo</button>
+        </div>
+        <div class="group">
+          <span>Posición:</span>
+          <span id="pos" class="badge">0.0s</span>
+          <button id="addMarker" class="btn">📍 Marcar</button>
+        </div>
+      </div>
+      <div class="markers" id="markers"></div>
+    </section>
+
+    <aside class="panel">
+      <h2 class="section-title">Proyecto</h2>
+      <div class="columns">
+        <div>
+          <button id="exportMix" class="btn primary">💾 Exportar mezcla (WAV)</button>
+        </div>
+        <div class="row">
+          <button id="clearAll" class="btn danger">🧹 Limpiar</button>
+          <button id="saveJson" class="btn" type="button">📦 Guardar proyecto (.json)</button>
+          <input id="loadJson" type="file" accept="application/json" style="display:none"/>
+          <label class="btn" for="loadJson">📂 Cargar proyecto</label>
+        </div>
+      </div>
+      <p class="sub">Para usar el micrófono, abre desde <span class="kbd">https://</span> o <span class="kbd">http://localhost</span>.</p>
+    </aside>
+
+    <section class="panel">
+      <h2 class="section-title">Pistas</h2>
+      <div class="toolbar">
+        <label class="btn" for="addAudio">➕ Pista de audio</label>
+        <input id="addAudio" type="file" accept="audio/*" style="display:none"/>
+        <button id="addInstrument" class="btn">🎹 Pista instrumento</button>
+      </div>
+      <div id="trackList"></div>
+    </section>
+
+    <aside class="panel">
+      <h2 class="section-title">Grabación</h2>
+      <div class="toolbar">
+        <button id="btnRec" class="btn danger">🎙️ Grabar</button>
+        <button id="btnMon" class="btn">🔊 Monitor</button>
+        <button id="btnAudition" class="btn">▶️ Reproducir última toma</button>
+        <button id="btnAudStop" class="btn">⏹️ Parar audición</button>
+        <button id="audM1" class="btn">◀️ −1s</button>
+        <button id="audP1" class="btn">▶️ +1s</button>
+        <span>Posición toma</span>
+        <span id="takePos" class="badge">0.0s</span>
+      </div>
+      <p class="sub">Durante la grabación, las pistas pueden sonar para referencia, pero la toma sólo captura el micrófono (no el master).</p>
+    </aside>
+
+    <section class="panel">
+      <h2 class="section-title">Mezclador</h2>
+      <div class="mixer">
+        <div>
+          <h3>Master</h3>
+          <div class="row">
+            <label for="masterGain">Volumen</label>
+            <input id="masterGain" type="range" min="0" max="1" step="0.01" value="0.85"/>
+          </div>
+          <div class="row">
+            <div>LUFS (aprox.): <span id="lufs">—</span></div>
+            <div>Peak: <span id="peak">— dBFS</span></div>
+          </div>
+        </div>
+        <div>
+          <h3>Analizador</h3>
+          <canvas id="analyzer" height="140"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">Línea de tiempo</h2>
+      <div id="timeline" class="timeline">
+        <div id="playhead" class="playhead" style="left:0"></div>
+      </div>
+      <h2 class="section-title">Pistas</h2>
+      <div id="tracks"></div>
+    </section>
+
+    <aside class="panel">
+      <h2 class="section-title">Consola</h2>
+      <div id="console" class="console"></div>
+      <div class="row sub">Atajos: <span class="kbd">Espacio</span> reproducir/pausar • <span class="kbd">L</span> loop • <span class="kbd">M</span> metrónomo</div>
+    </aside>
+
+    <section id="guia" class="guide" aria-hidden="true" role="dialog" aria-label="Guía interactiva">
+      <div class="card">
+        <h3>Guía interactiva</h3>
+        <ol>
+          <li>Importa una pista con «➕ Pista de audio». Puedes añadir varias.</li>
+          <li>Activa «🧭 Metrónomo» y ajusta el <strong>BPM</strong>.</li>
+          <li>Usa «🔁 Loop» para practicar un fragmento.</li>
+          <li>Graba tu voz o instrumento con «🎙️ Grabar».</li>
+          <li>Mezcla y exporta con «💾 Exportar mezcla (WAV)».</li>
+        </ol>
+        <div class="row" style="margin-top:8px;">
+          <button id="guidePrev" class="btn">⟵ Anterior</button>
+          <button id="guideNext" class="btn">Siguiente ⟶</button>
+          <button id="guideClose" class="btn danger">Cerrar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
