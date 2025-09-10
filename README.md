@@ -37,3 +37,62 @@ python -m http.server 8080
 
 ## Licencia
 MIT — ver `LICENSE`.
+
+---
+
+## Deploy a GitHub Pages (rama danytool + Actions)
+Este repo está configurado para desplegarse automáticamente a **GitHub Pages** usando **GitHub Actions** desde la rama `danytool`.
+
+- Workflow: `.github/workflows/pages.yml` (sin build; sube la raíz `.` tal cual).
+- Disparadores: `push` a `danytool` y `workflow_dispatch` manual.
+- Permisos: `contents: read`, `pages: write`, `id-token: write`.
+- Concurrencia: grupo `pages` con cancelación en progreso.
+- Jobs: `build` (checkout + upload artifact) y `deploy` (deploy-pages con `environment: github-pages`).
+
+URL esperada (Pages):
+
+```
+https://613tdany-dotcom.github.io/DAW-DANY-TOOL/
+```
+
+Notas:
+- La primera vez, **Settings → Pages** suele mostrar "GitHub Actions" como origen automáticamente. Si el repositorio requiere confirmación manual, habilítalo allí una sola vez.
+- Las rutas son relativas, por lo que el sitio funciona bajo `/DAW-DANY-TOOL/`.
+
+### Diagrama de flujo de despliegue (ilustrativo)
+El siguiente diagrama muestra el pipeline de publicación a Pages. GitHub renderiza bloques Mermaid directamente en el README.
+
+```mermaid
+flowchart LR
+  Dev[Push a 'danytool'] --> CI[GitHub Actions: pages.yml]
+  CI --> Artifact[Upload Pages Artifact]
+  Artifact --> Deploy[Deploy to GitHub Pages]
+  Deploy --> Site[https://613tdany-dotcom.github.io/DAW-DANY-TOOL/]
+```
+
+## Desarrollo local HTTPS (Windows + Chrome + mkcert)
+Para que el micrófono funcione en desarrollo, usa HTTPS local sin dependencias de Node.
+
+1. Sigue la guía: `dev/README-local-https.md` (instalación de mkcert y generación de certificados).
+2. Ejecuta el servidor:
+
+```bash
+python dev/serve_https.py
+```
+
+3. Abre:
+
+```
+https://localhost:8443
+```
+
+Chrome en Windows utiliza el almacén de certificados del sistema, por lo que tras `mkcert -install` confiará en los certificados generados.
+
+### Saneamiento del remoto Git (quitar token)
+Si por accidente configuraste el remoto con un token embebido, cámbialo localmente a HTTPS sin credenciales:
+
+```bash
+git remote set-url origin https://github.com/613tdany-dotcom/DAW-DANY-TOOL.git
+```
+
+Este ajuste se hace **solo en tu máquina**. No se deben versionar tokens, claves ni ninguna información sensible.
